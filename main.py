@@ -1,9 +1,3 @@
-"""
-License: Apache
-Organization: UNIR
-"""
-
-import os
 import sys
 
 DEFAULT_FILENAME = "words.txt"
@@ -56,8 +50,15 @@ if __name__ == "__main__":
         print(MESSAGES["file_not_found"].format(filename))
         word_list = ["ravenclaw", "gryffindor", "slytherin", "hufflepuff"]
 
-    if remove_duplicates:
-        word_list = remove_duplicates_from_list(word_list)
+    try:
+        with open(filename, 'r') as f:
+            lines = f.readlines()
+            print(f"File {filename} has {len(lines)} lines.")
+            if choice == 'yes':
+                for line in lines:
+                    print(line.strip())
+    except FileNotFoundError:
+        print(f"Error: File {filename} not found.")
 
     # Le pasamos nuestra variable 'ascending' a la función de ordenamiento
     print(sort_list(word_list, ascending=ascending))
